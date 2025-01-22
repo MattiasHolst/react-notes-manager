@@ -5,6 +5,24 @@
       "title": "A title",
       "content": "Bla bla",
       "created_at": "2025-01-21"
+    },
+    {
+      "id": "2",
+      "title": "A titlesss",
+      "content": "Bla blassssss",
+      "created_at": "2025-01-21"
+    },
+    {
+      "id": "361a",
+      "title": "test",
+      "content": "test2331",
+      "created_at": "2025-01-22"
+    },
+    {
+      "id": "8ec9",
+      "title": "Add note",
+      "content": "Adding a new note",
+      "created_at": "2025-01-22"
     }
   ]
 }
