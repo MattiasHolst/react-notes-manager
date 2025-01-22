@@ -2,13 +2,37 @@ import React, { useState } from "react";
 import s from "./style.module.css";
 import { PencilFill, TrashFill } from "react-bootstrap-icons";
 import ButtonPrimary from "components/ButtonPrimary/ButtonPrimary";
+import { max, min } from "services/validator";
+import FieldError from "components/FieldError/FieldError";
+
+const VALIDATOR = {
+  title: (value) => {
+    return min(value, 3) || max(value, 20);
+  },
+  content: (value) => {
+    return min(value, 3);
+  },
+};
+
 const NoteForm = ({ title, onClickEdit, onClickDelete, onSubmit }) => {
   const [formValues, setFormValues] = useState({ title: "", content: "" });
+  const [formErrors, setFormErrors] = useState({
+    title: undefined,
+    content: undefined,
+  });
 
   const updateFormValues = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setFormValues({ ...formValues, [name]: value });
+    validate(value, name);
+  };
+
+  const validate = (fieldValue, fieldName) => {
+    setFormErrors({
+      ...formErrors,
+      [fieldName]: VALIDATOR[fieldName](fieldValue),
+    });
   };
   return (
     <div className={s.container}>
@@ -23,7 +47,7 @@ const NoteForm = ({ title, onClickEdit, onClickDelete, onSubmit }) => {
           {onClickDelete && <TrashFill className={s.icon} />}
         </div>
       </div>
-      <div className={`mb-3 ${s.title_input_container}`}>
+      <div className={`mb-5 ${s.title_input_container}`}>
         <label className="form-label">Title</label>
         <input
           onChange={updateFormValues}
@@ -31,8 +55,9 @@ const NoteForm = ({ title, onClickEdit, onClickDelete, onSubmit }) => {
           name="title"
           className="form-control"
         />
+        <FieldError msg={formErrors.title} />
       </div>
-      <div className="mb-3">
+      <div className="mb-5">
         <label className="form-label">Content</label>
         <textarea
           onChange={updateFormValues}
@@ -41,6 +66,7 @@ const NoteForm = ({ title, onClickEdit, onClickDelete, onSubmit }) => {
           className="form-control"
           rows={5}
         />
+        <FieldError msg={formErrors.content} />
       </div>
       <div className={s.submit_btn}>
         {onSubmit && (
