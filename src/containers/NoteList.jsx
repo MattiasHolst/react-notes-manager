@@ -5,8 +5,7 @@ import TextCard from "components/TextCard/TextCard";
 import { useNavigate } from "react-router-dom";
 import { deleteById } from "api/note-api";
 import { deleteNote } from "store/notes/notes-slice";
-const NoteList = () => {
-  const noteList = useSelector((store) => store.noteSlice.noteList);
+const NoteList = ({ noteList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
