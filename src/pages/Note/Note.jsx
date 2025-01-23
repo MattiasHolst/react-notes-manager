@@ -1,4 +1,5 @@
 import NoteForm from "components/NoteForm/NoteForm";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -7,15 +8,25 @@ const Note = () => {
   const note = useSelector((store) =>
     store.noteSlice.noteList.find((note) => note.id === id)
   );
+  const [isEditable, setIsEditable] = useState(false);
+
+  const handleEditClick = () => {
+    setIsEditable(!isEditable);
+  };
+
+  const handleSubmit = (formValues) => {
+
+  }
   return (
     <>
       {note && (
         <NoteForm
-          title={note.title}
+          title={isEditable ? "Edit note" : note.title}
           note={note}
-          onClickEdit={() => console.log("edit")}
+          onClickEdit={handleEditClick}
           onClickDelete={() => console.log("delete")}
-          isEditable={false}
+          isEditable={isEditable}
+          onSubmit={isEditable && handleSubmit}
         />
       )}
     </>

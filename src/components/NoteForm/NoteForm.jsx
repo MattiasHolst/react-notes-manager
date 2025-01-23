@@ -22,10 +22,13 @@ const NoteForm = ({
   onClickDelete,
   onSubmit,
 }) => {
-  const [formValues, setFormValues] = useState({ title: "", content: "" });
+  const [formValues, setFormValues] = useState({
+    title: note?.title,
+    content: note?.content,
+  });
   const [formErrors, setFormErrors] = useState({
-    title: true,
-    content: true,
+    title: note?.title ? undefined : true,
+    content: note?.content ? undefined : true,
   });
 
   const updateFormValues = (e) => {
@@ -67,6 +70,7 @@ const NoteForm = ({
               type="text"
               name="title"
               className="form-control"
+              value={formValues.title}
             />
             <FieldError msg={formErrors.title} />
           </>
@@ -82,6 +86,7 @@ const NoteForm = ({
               name="content"
               className="form-control"
               rows={5}
+              value={formValues.content}
             />
             <FieldError msg={formErrors.content} />{" "}
           </>
