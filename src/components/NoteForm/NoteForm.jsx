@@ -17,8 +17,8 @@ const VALIDATOR = {
 const NoteForm = ({ title, onClickEdit, onClickDelete, onSubmit }) => {
   const [formValues, setFormValues] = useState({ title: "", content: "" });
   const [formErrors, setFormErrors] = useState({
-    title: undefined,
-    content: undefined,
+    title: true,
+    content: true,
   });
 
   const updateFormValues = (e) => {
@@ -70,7 +70,10 @@ const NoteForm = ({ title, onClickEdit, onClickDelete, onSubmit }) => {
       </div>
       <div className={s.submit_btn}>
         {onSubmit && (
-          <ButtonPrimary onClick={() => onSubmit(formValues)}>
+          <ButtonPrimary
+            isDisabled={formErrors.title || formErrors.content ? true : false}
+            onClick={() => onSubmit(formValues)}
+          >
             Submit
           </ButtonPrimary>
         )}

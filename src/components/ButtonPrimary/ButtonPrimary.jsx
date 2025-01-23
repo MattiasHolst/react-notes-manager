@@ -1,9 +1,9 @@
 import React from "react";
 import s from "./style.module.css";
 
-const ButtonPrimary = ({ children, onClick }) => {
+const ButtonPrimary = ({ children, onClick, isDisabled }) => {
   return (
-    <button onClick={onClick} type="button" className={`btn btn-primary ${s.button}`}>
+    <button disabled={isDisabled} onClick={onClick} type="button" className={`btn btn-primary ${s.button}`}>
       {children}
     </button>
   );
