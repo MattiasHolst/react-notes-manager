@@ -14,7 +14,14 @@ const VALIDATOR = {
   },
 };
 
-const NoteForm = ({ title, onClickEdit, onClickDelete, onSubmit }) => {
+const NoteForm = ({
+  isEditable = true,
+  note,
+  title,
+  onClickEdit,
+  onClickDelete,
+  onSubmit,
+}) => {
   const [formValues, setFormValues] = useState({ title: "", content: "" });
   const [formErrors, setFormErrors] = useState({
     title: true,
@@ -41,32 +48,46 @@ const NoteForm = ({ title, onClickEdit, onClickDelete, onSubmit }) => {
           <h2 className="mb-3">{title}</h2>
         </div>
         <div className="col-1">
-          {onClickEdit && <PencilFill className={s.icon} />}
+          {onClickEdit && (
+            <PencilFill onClick={onClickEdit} className={s.icon} />
+          )}
         </div>
         <div className="col-1">
-          {onClickDelete && <TrashFill className={s.icon} />}
+          {onClickDelete && (
+            <TrashFill onClick={onClickDelete} className={s.icon} />
+          )}
         </div>
       </div>
       <div className={`mb-5 ${s.title_input_container}`}>
-        <label className="form-label">Title</label>
-        <input
-          onChange={updateFormValues}
-          type="text"
-          name="title"
-          className="form-control"
-        />
-        <FieldError msg={formErrors.title} />
+        {isEditable && (
+          <>
+            <label className="form-label">Title</label>
+            <input
+              onChange={updateFormValues}
+              type="text"
+              name="title"
+              className="form-control"
+            />
+            <FieldError msg={formErrors.title} />
+          </>
+        )}
       </div>
       <div className="mb-5">
-        <label className="form-label">Content</label>
-        <textarea
-          onChange={updateFormValues}
-          type="text"
-          name="content"
-          className="form-control"
-          rows={5}
-        />
-        <FieldError msg={formErrors.content} />
+        {isEditable ? (
+          <>
+            <label className="form-label">Content</label>
+            <textarea
+              onChange={updateFormValues}
+              type="text"
+              name="content"
+              className="form-control"
+              rows={5}
+            />
+            <FieldError msg={formErrors.content} />{" "}
+          </>
+        ) : (
+          <pre>{note.content}</pre>
+        )}
       </div>
       <div className={s.submit_btn}>
         {onSubmit && (
