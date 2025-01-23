@@ -23,8 +23,8 @@ const NoteForm = ({
   onSubmit,
 }) => {
   const [formValues, setFormValues] = useState({
-    title: note?.title,
-    content: note?.content,
+    title: note?.title || "",
+    content: note?.content || "",
   });
   const [formErrors, setFormErrors] = useState({
     title: note?.title ? undefined : true,
