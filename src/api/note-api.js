@@ -18,6 +18,6 @@ export const deleteById = async(noteId) => {
   return (await axios.delete(`${BASE_URL}/${noteId}`)).data
 };
 
-export const updateById = async(note) => {
-  return (await axios.patch(`${BASE_URL}/${note.id}`, note)).data
+export const updateById = async(noteId, noteData) => {
+  return (await axios.patch(`${BASE_URL}/${noteId}`, noteData)).data
 };
